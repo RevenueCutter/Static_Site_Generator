@@ -46,12 +46,11 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
         content_list = os.listdir(dir_path_content)
         for item in content_list:
             item_path = os.path.join(dir_path_content, item)
+            new_dest_dir_path = os.path.join(dest_dir_path, item)
             if os.path.isfile(item_path):
-                new_dest_dir_path = os.path.join(dest_dir_path, item)
                 new_dest_html_path = Path(new_dest_dir_path).with_suffix(".html")
                 generate_page(item_path, template_path, new_dest_html_path, basepath)
             else:
-                new_dest_dir_path = os.path.join(dest_dir_path, item)
                 os.makedirs(new_dest_dir_path, exist_ok=True)
                 print(f"Creating new {new_dest_dir_path} subdirectory at destination")
                 generate_pages_recursive(item_path, template_path, new_dest_dir_path, basepath)
